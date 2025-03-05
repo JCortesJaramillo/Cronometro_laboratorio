@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#626262">
+
+    <TextView
+        android:id="@+id/tiempo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Inicio"
+        android:textSize="50sp"
+        android:textColor="#333333"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="200dp"
+        android:layout_alignParentTop="true" />
+
+    <LinearLayout
+        android:id="@+id/contenedorBotones"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tiempo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/botonInicio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/boton_inicio"
+            android:textColor="#ffffff"
+            android:background="@color/colorBoton"
+            android:layout_marginEnd="10dp" />
+
+        <Button
+            android:id="@+id/botonFinal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/boton_parar"
+            android:textColor="#ffffff"
+            android:background="@color/colorBoton"
+            android:layout_marginEnd="10dp" />
+
+        <Button
+            android:id="@+id/botonParcial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/parcial"
+            android:textColor="#ffffff"
+            android:background="@color/colorBoton" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/listaParcial"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/contenedorBotones"
+        android:layout_marginTop="20dp" />
+
+</RelativeLayout>

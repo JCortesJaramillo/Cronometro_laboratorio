@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Cronometro</string>
+    <string name="boton_inicio">Iniciar</string>
+    <string name="boton_parar">Parar</string>
+    <string name="parcial">Parcial</string>
+    <string name="Inicio">00:00</string>
+</resources>
