@@ -52,11 +52,22 @@
             android:background="@color/colorBoton" />
     </LinearLayout>
 
+    <Button
+        android:id="@+id/botonReset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Reinicio"
+        android:textColor="#ffffff"
+        android:background="@color/colorBoton"
+        android:layout_below="@id/contenedorBotones"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp" />
+
     <ListView
         android:id="@+id/listaParcial"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/contenedorBotones"
+        android:layout_below="@id/botonReset"
         android:layout_marginTop="20dp" />
 
 </RelativeLayout>

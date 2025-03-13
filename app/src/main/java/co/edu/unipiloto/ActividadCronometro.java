@@ -19,6 +19,7 @@ public class ActividadCronometro extends AppCompatActivity {
     private ArrayList<String> listaParcial;
     private ArrayAdapter<String> adaptador;
     private int contadorParcial = 0;
+    private int ultimoParcial = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,25 +28,28 @@ public class ActividadCronometro extends AppCompatActivity {
 
         tiempo = findViewById(R.id.tiempo);
         listaParcial = new ArrayList<>();
-        ListView lapsListView = findViewById(R.id.listaParcial);
+        ListView listaParcial = findViewById(R.id.listaParcial);
 
-        adaptador = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listaParcial);
-        lapsListView.setAdapter(adaptador);
+        adaptador = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, this.listaParcial);
+        listaParcial.setAdapter(adaptador);
 
         if (savedInstanceState != null) {
             segundos = savedInstanceState.getInt("segundos");
-            listaParcial = savedInstanceState.getStringArrayList("tiemposParciales");
+            this.listaParcial = savedInstanceState.getStringArrayList("tiempoParcial");
             contadorParcial = savedInstanceState.getInt("contadorParcial");
             actualizarCronometro();
         }
 
-        Button startButton = findViewById(R.id.botonInicio);
-        Button stopButton = findViewById(R.id.botonFinal);
-        Button lapButton = findViewById(R.id.botonParcial);
+        Button botonInicio = findViewById(R.id.botonInicio);
+        Button botonAlto = findViewById(R.id.botonFinal);
+        Button botonParcial = findViewById(R.id.botonParcial);
+        botonParcial.setEnabled(false);
+        Button botonReinicio = findViewById(R.id.botonReset);
 
-        startButton.setOnClickListener(v -> startTimer());
-        stopButton.setOnClickListener(v -> detenerCronometro());
-        lapButton.setOnClickListener(v -> registrarParcial());
+        botonInicio.setOnClickListener(v -> {startTimer(); botonParcial.setEnabled(true);});
+        botonAlto.setOnClickListener(v -> detenerCronometro());
+        botonParcial.setOnClickListener(v -> registrarParcial());
+        botonReinicio.setOnClickListener(v -> {resetearCronometro(); botonParcial.setEnabled(false);});
     }
 
     private void startTimer() {
@@ -68,13 +72,26 @@ public class ActividadCronometro extends AppCompatActivity {
         activo = false;
     }
 
+    private void resetearCronometro() {
+        activo = false;
+        segundos = 0;
+        contadorParcial = 0;
+        ultimoParcial = 0;
+        listaParcial.clear();
+
+        actualizarCronometro();
+        adaptador.notifyDataSetChanged();
+    }
+
     private void registrarParcial() {
         if (contadorParcial < 5) {
-            int minutes = segundos / 60;
-            int remainingSeconds = segundos % 60;
-            String tiempoParcial = String.format("Parcial %d: %02d:%02d", contadorParcial + 1, minutes, remainingSeconds);
+            int diferencia = segundos - ultimoParcial;
+            int minutos = diferencia / 60;
+            int segundos = diferencia % 60;
+            String tiempoParcial = String.format("Parcial %d: %02d:%02d", contadorParcial + 1, minutos, segundos);
             listaParcial.add(tiempoParcial);
             contadorParcial++;
+            ultimoParcial = this.segundos;
             adaptador.notifyDataSetChanged();
         }
 
@@ -114,6 +131,7 @@ public class ActividadCronometro extends AppCompatActivity {
         segundos = savedInstanceState.getInt("segundos");
         listaParcial = savedInstanceState.getStringArrayList("tiempoParcial");
         contadorParcial = savedInstanceState.getInt("contadorParcial");
+        adaptador.notifyDataSetChanged();
         actualizarCronometro();
     }
 }
